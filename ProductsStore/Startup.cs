@@ -1,42 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Antiforgery;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using Microsoft.Extensions.PlatformAbstractions;
-using System.IO;
+using ProductsStore.Repository;
 using Swashbuckle.AspNetCore.Swagger;
-using Swashbuckle.AspNetCore.SwaggerUI;
+using System;
+using System.IO;
 
 namespace ProductsStore
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IConfiguration _configuration;
+        private readonly IHostingEnvironment _environment;
+
+        public Startup(IHostingEnvironment environment)
         {
-            Configuration = configuration;
+            _environment = environment;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(_environment.ContentRootPath)
+                .AddJsonFile("appsettings.json")
+                .AddEnvironmentVariables();
+
+            _configuration = builder.Build();
+
+            //Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        // public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<AppDbContext>();
+
             // Add framework services.
             services.AddMvc();
 
             //Handle XSRF Name for Header
-            services.AddAntiforgery(options => {
+            services.AddAntiforgery(options =>
+            {
                 options.HeaderName = "X-XSRF-TOKEN";
             });
+
+            services.AddScoped<ICustomersRepository, CustomersRepository>();
+            services.AddScoped<IStatesRepository, StatesRepository>();
+            services.AddTransient<AppDbSeeder>();
+
 
             //https://github.com/domaindrivendev/Swashbuckle.AspNetCore
             services.AddSwaggerGen(options =>
@@ -59,7 +72,7 @@ namespace ProductsStore
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IAntiforgery antiforgery)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IAntiforgery antiforgery, AppDbSeeder appDbSeeder)
         {
             //Manually handle setting XSRF cookie. Needed because HttpOnly has to be set to false so that
             //Angular is able to read/access the cookie.
@@ -128,6 +141,8 @@ namespace ProductsStore
                 routes.MapSpaFallbackRoute("spa-fallback", new { controller = "Home", action = "Index" });
 
             });
+
+            appDbSeeder.SeedAsync(app.ApplicationServices).Wait();
         }
     }
 }
