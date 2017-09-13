@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -9,7 +10,6 @@ using ProductsStore.Repository;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
-using Microsoft.EntityFrameworkCore;
 
 namespace ProductsStore
 {
@@ -64,7 +64,7 @@ namespace ProductsStore
                     Title = "ASP.NET Core Customers API",
                     Description = "ASP.NET Core/Angular Swagger Documentation",
                     TermsOfService = "None",
-                    Contact = new Contact { Name = "Dan Wahlin", Url = "http://twitter.com/danwahlin" },
+                    Contact = new Contact { Name = "Carlos Anaya", Url = "https://www.linkedin.com/in/carlos-anaya-6098bb4b" },
                     License = new License { Name = "MIT", Url = "https://en.wikipedia.org/wiki/MIT_License" }
                 });
 
