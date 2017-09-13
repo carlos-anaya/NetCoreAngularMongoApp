@@ -15,11 +15,5 @@ namespace ProductsStore.Repository
         {
             _configuration = configuration;
         }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer(_configuration["ConnectionStrings:AppDbConnection"]);
-        }
     }
 }

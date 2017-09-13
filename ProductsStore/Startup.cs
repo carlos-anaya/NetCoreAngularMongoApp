@@ -9,6 +9,7 @@ using ProductsStore.Repository;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProductsStore
 {
@@ -35,7 +36,10 @@ namespace ProductsStore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>();
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseSqlServer(_configuration["ConnectionStrings:AppDbConnection"]);
+            });
 
             // Add framework services.
             services.AddMvc();
