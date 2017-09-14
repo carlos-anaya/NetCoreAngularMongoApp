@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 import { CustomersComponent } from './customers/customers.component';
+import { CustomersGridComponent } from './customers/customers-grid.component';
 
 const app_routes: Routes = [
     { path: 'customers', component: CustomersComponent },
@@ -16,5 +17,5 @@ const app_routes: Routes = [
     exports: [RouterModule]
 })
 export class AppRoutingModule {
-    static components = [HomeComponent, CustomersComponent];
+    static components = [HomeComponent, CustomersComponent, CustomersGridComponent];
 }

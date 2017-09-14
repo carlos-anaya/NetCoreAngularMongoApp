@@ -8,31 +8,17 @@
     <br />
     <div class="row">
         <div class="col-md-8">
-            Filter by: <input type="text" />
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="filterBy">Filter by:</label>
+                    <input type="text" class="form-control" id="filterBy">
+                </div>
+            </div>
         </div>
         <div class="col-md-4">
-            <a class="btn btn-default">Add customer!</a>
+            <a class="btn btn-primary">Add new customer!</a>
         </div>
     </div>
-
-    <div class="table-responsive">
-        <table class="table" *ngIf='customers && customers.length'>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Address</th>
-                    <th>Gender</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor='let customer of filteredCustomers'>
-                    <td>{{ customer.firstName + " " + customer.LastName }}</td>
-                    <td>{{ customer.email }}</td>
-                    <td>{{ customer.address + " " + customer.city + " " + customer.state.name + " " + customer.zip}}</td>
-                    <td>{{ customer.genre }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <br />
+    <customers-grid [customers]="filteredCustomers"></customers-grid>
 </div>

@@ -5,7 +5,6 @@ import { CustomerService } from '../core/services/customer.service';
 import { ICustomer } from '../shared/interfaces';
 
 @Component({
-    moduleId: module.id,
     selector: 'customers',
     templateUrl: './customers.component.html'
 })
