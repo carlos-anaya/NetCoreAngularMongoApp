@@ -1,0 +1,38 @@
+﻿<div class="container">
+    <header>
+        <h3>
+            <span class="glyphicon glyphicon-user"></span>
+            {{ title }}
+        </h3>
+    </header>
+    <br />
+    <div class="row">
+        <div class="col-md-8">
+            Filter by: <input type="text" />
+        </div>
+        <div class="col-md-4">
+            <a class="btn btn-default">Add customer!</a>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table" *ngIf='customers && customers.length'>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Gender</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let customer of filteredCustomers'>
+                    <td>{{ customer.firstName + " " + customer.LastName }}</td>
+                    <td>{{ customer.email }}</td>
+                    <td>{{ customer.address + " " + customer.city + " " + customer.state.name + " " + customer.zip}}</td>
+                    <td>{{ customer.genre }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
