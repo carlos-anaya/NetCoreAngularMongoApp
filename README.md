@@ -1,4 +1,3 @@
-# .NET Core, Angular & Mongo App
+# .NET Core, Angular & MongoDB App
 
-This app simulates a products store. It's build using .NET Core, Angular and SQLServer. In the future Mongo will be used instead of SQL Server. Additionally, it will include OpenID Connect and OAuth 2.0 by using Identity Framework.
-Angular and ASP.NET Core.
+This app simulates a products store. It's built using .NET Core, Angular and SQLServer. In the future, MongoDB will be used instead of SQLServer. Additionally, it will include OpenID Connect and OAuth 2.0 by using IdentityServer4.
