@@ -10,7 +10,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('copy:libs', function (done) {
-    sequence('clean', 'copy:vendor', 'copy:rxjs', 'copy:angular', done);
+    sequence('clean', 'copy:vendor', 'copy:rxjs', 'copy:angular', 'copy:bootstrap', done);
 });
 
 gulp.task('copy:vendor', function() {
@@ -36,12 +36,19 @@ gulp.task('copy:angular', function() {
 //       'node_modules/@angular/compiler/bundles/compiler.umd.js',
 //       'node_modules/@angular/core/bundles/core.umd.js',
 //       'node_modules/@angular/forms/bundles/forms.umd.js',
-//       'node_modules/@angular/http/bundles/http.umd.js',      
+//       'node_modules/@angular/http/bundles/http.umd.js',
 //       'node_modules/@angular/platform-browser/bundles/platform-browser.umd.js',
 //       'node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
 //       'node_modules/@angular/router/bundles/router.umd.js',
 //     ])
     return gulp.src([nodeModulesPath + '/@angular/**/*']).pipe(gulp.dest(libPath + '/@angular'));
+});
+
+gulp.task('copy:bootstrap', function () {
+    return gulp.src([
+            nodeModulesPath + '/bootstrap/**/*'
+        ])
+        .pipe(gulp.dest(libPath + '/bootstrap'));
 });
 
 gulp.task('watch', function() {
