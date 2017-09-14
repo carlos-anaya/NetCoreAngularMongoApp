@@ -8,12 +8,7 @@
     <br />
     <div class="row">
         <div class="col-md-8">
-            <div class="form-inline">
-                <div class="form-group">
-                    <label for="filterBy">Filter by:</label>
-                    <input type="text" class="form-control" id="filterBy">
-                </div>
-            </div>
+            <filter-textbox (changed)="filterChanged($event)"></filter-textbox>
         </div>
         <div class="col-md-4">
             <a class="btn btn-primary">Add new customer!</a>

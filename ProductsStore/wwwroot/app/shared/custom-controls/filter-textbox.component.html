@@ -1,0 +1,7 @@
+﻿<form class="form-inline">
+    <div class="form-group">
+        <label for="filter">Filter:</label>
+        <input type="text" class="form-control" id="filter" name="filter"
+               [(ngModel)]="model.filter" (keyup)="filterChanged($event)" />
+    </div>
+</form>

@@ -2,6 +2,7 @@
 import { Router } from '@angular/router';
 
 import { CustomerService } from '../core/services/customer.service';
+import { DataFilterService } from '../core/services/data-filter.service';
 import { ICustomer } from '../shared/interfaces';
 
 @Component({
@@ -14,7 +15,8 @@ export class CustomersComponent implements OnInit {
     filteredCustomers: ICustomer[] = [];
 
     constructor(private router: Router,
-        private customerService: CustomerService) { }
+        private customerService: CustomerService,
+        private dataFilter: DataFilterService) { }
 
     ngOnInit(): void {
         this.title = 'Customers';
@@ -29,5 +31,13 @@ export class CustomersComponent implements OnInit {
             (err: any) => console.log(err),
             () => console.log('getCustomers() executed succesfully')
         );
+    }
+
+    filterChanged(filterText: string) {
+        if (filterText && this.customers) {
+            let props = ['firstName', 'lastName', 'address', 'city', 'state.name', 'orderTotal'];
+            this.filteredCustomers = this.dataFilter.filter(this.customers, props, filterText);
+        } else
+            this.filteredCustomers = this.customers;
     }
 }

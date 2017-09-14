@@ -5,12 +5,13 @@ import { HttpModule } from '@angular/http';
 import { EnsureModuleLoadedOnceGuard } from './ensureModuleLoadedOnceGuard';
 import { Sorter } from './sorter';
 import { DataService } from './services/data.service';
+import { DataFilterService } from './services/data-filter.service';
 import { CustomerService } from './services/customer.service';
 
 @NgModule({
     imports: [ CommonModule, HttpModule ],
     exports: [ HttpModule ],
-    providers: [DataService, CustomerService, Sorter ] // these should be singleton
+    providers: [CustomerService, DataService, DataFilterService, Sorter ] // these should be singleton
 })
 export class CoreModule extends EnsureModuleLoadedOnceGuard {    //Ensure that CoreModule is only loaded into AppModule
 
