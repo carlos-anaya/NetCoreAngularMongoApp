@@ -21,6 +21,7 @@ namespace ProductsStore.Repository
         {
             return await _appDbContext.Customers
                 .Include(c => c.State)
+                .Include(c => c.Orders)
                 .ToListAsync();
         }
 
@@ -28,6 +29,7 @@ namespace ProductsStore.Repository
         {
             return await _appDbContext.Customers
                 .Include(c => c.State)
+                .Include(c => c.Orders)
                 .SingleOrDefaultAsync(c => c.Id == id);
         }
 
