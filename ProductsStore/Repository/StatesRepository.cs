@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProductsStore.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ProductsStore.Repository
@@ -15,7 +16,9 @@ namespace ProductsStore.Repository
         }
         public async Task<List<State>> GetStatesAsync()
         {
-            return await _appDbContext.States.ToListAsync();
+            return await _appDbContext.States
+                .OrderBy(s => s.Name)
+                .ToListAsync();
         }
     }
 }
