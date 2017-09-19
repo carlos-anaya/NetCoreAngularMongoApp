@@ -1,0 +1,88 @@
+﻿<div class="container">
+    <header>
+        <h3>
+            <span class="glyphicon glyphicon-user"></span>
+            {{ customer.firstName + ' ' + customer.lastName}}
+        </h3>
+    </header>
+    <br />
+    <form class="form-horizontal" (ngSubmit)="submit();" #customerForm="ngForm" novalidate>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="firstName">First Name:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="firstName"
+                       name="firstName" [(ngModel)]="customer.firstName"
+                       #firstName="ngModel" required>
+                <span class="text-danger" [hidden]="firstName.untouched || firstName.valid">*First name is required</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="lastName">Last Name:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="lastName"
+                       name="lastName" [(ngModel)]="customer.lastName"
+                       #lastName="ngModel" required>
+                <span class="text-danger" [hidden]="lastName.untouched || lastName.valid">*Last name is required</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="gender">Gender:</label>
+            <div class="col-sm-10">
+                <div class="radio">
+                    <label>
+                        <input type="radio" id="gender" name="gender" [(ngModel)]="customer.gender"
+                               #gender="ngModel" value="Male" required>Male
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="gender" [(ngModel)]="customer.gender"
+                               #gender="ngModel" value="Female" required>Female
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Email:</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="email"
+                       name="email" [(ngModel)]="customer.email"
+                       #email="ngModel" required pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$">
+                <span class="text-danger" [hidden]="email.untouched || email.valid">*Email is required</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="address">Address:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="address"
+                       name="address" [(ngModel)]="customer.address"
+                       #address="ngModel" required>
+                <span class="text-danger" [hidden]="address.untouched || address.valid">*Address is required</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="city">City:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="city"
+                       name="city" [(ngModel)]="customer.city"
+                       #city="ngModel" required>
+                <span class="text-danger" [hidden]="city.untouched || city.valid">*City is required</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="state">State:</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="state" [(ngModel)]="customer.stateId"
+                        name="state" required>
+                    <option *ngFor="let state of states" [ngValue]="state.id">{{state.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group" *ngIf="customer">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-default" (click)="cancel($event)">Cancel</button>
+                <button type="submit" class="btn btn-success" [disabled]="!customerForm.valid">*{{ operationText }}</button>
+            </div>
+        </div>
+    </form>
+</div>

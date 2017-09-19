@@ -7,11 +7,12 @@ import { Sorter } from './sorter';
 import { DataService } from './services/data.service';
 import { DataFilterService } from './services/data-filter.service';
 import { CustomerService } from './services/customer.service';
+import { StateService } from './services/state.service';
 
 @NgModule({
-    imports: [ CommonModule, HttpModule ],
-    exports: [ HttpModule ],
-    providers: [CustomerService, DataService, DataFilterService, Sorter ] // these should be singleton
+    imports: [CommonModule, HttpModule],
+    exports: [HttpModule],
+    providers: [CustomerService, StateService, DataService, DataFilterService, Sorter] // these should be singleton
 })
 export class CoreModule extends EnsureModuleLoadedOnceGuard {    //Ensure that CoreModule is only loaded into AppModule
 

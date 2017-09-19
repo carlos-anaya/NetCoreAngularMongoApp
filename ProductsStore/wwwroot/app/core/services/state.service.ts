@@ -15,7 +15,7 @@ export class StateService {
 
     constructor(private http: Http) { }
 
-    getStates(): Observable<IState> {
+    getStates(): Observable<IState[]> {
         return this.http.get(this.baseUrl)
             .map((res: Response) => res.json())
             .catch(this.handleError);

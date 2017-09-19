@@ -26,7 +26,7 @@ export class CustomerService {
             .catch(this.handleError);
     }
 
-    getCustomer(id: string): Observable<ICustomer[]> {
+    getCustomer(id: string): Observable<ICustomer> {
         return this.http.get(this.baseUrl + '/' + id)
             .map((res: Response) => res.json())
             .catch(this.handleError);
