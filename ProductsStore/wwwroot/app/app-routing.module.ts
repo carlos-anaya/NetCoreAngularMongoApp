@@ -3,11 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 import { CustomersComponent } from './customers/customers.component';
-//import { CustomerEditComponent } from './customers/customer-edit.component';
-import { CustomerEditComponent } from './customers/customer-edit-reactive.component';
+import { CustomerEditComponent } from './customers/customer-edit.component';
+//import { CustomerEditComponent } from './customers/customer-edit-reactive.component';
 import { CustomersGridComponent } from './customers/customers-grid.component';
 
-const app_routes: Routes = [
+const appRoutes: Routes = [
     { path: 'customers', component: CustomersComponent },
     { path: 'customers/:id', component: CustomerEditComponent },
     { path: 'home', component: HomeComponent },
@@ -16,7 +16,7 @@ const app_routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(app_routes)],
+    imports: [RouterModule.forRoot(appRoutes)],
     exports: [RouterModule]
 })
 export class AppRoutingModule {

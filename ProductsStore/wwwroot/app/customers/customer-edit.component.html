@@ -6,6 +6,7 @@
         </h3>
     </header>
     <br />
+    <div class="alert alert-danger" *ngIf="errorMessage != null">{{ errorMessage }}</div>
     <form class="form-horizontal" (ngSubmit)="submit();" #customerForm="ngForm" novalidate>
         <div class="form-group">
             <label class="control-label col-sm-2" for="firstName">First Name:</label>

@@ -40,4 +40,8 @@ export class CustomersComponent implements OnInit {
         } else
             this.filteredCustomers = this.customers;
     }
+
+    addNewCustomer() {
+        this.router.navigateByUrl('/customers/0');
+    }
 }

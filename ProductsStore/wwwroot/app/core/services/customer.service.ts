@@ -32,6 +32,16 @@ export class CustomerService {
             .catch(this.handleError);
     }
 
+    insertCustomer(customer: ICustomer): Observable<ICustomer> {
+        return this.http.post(this.baseUrl, customer)
+            .map((res: Response) => {
+                const data = res.json();
+                console.log('updateCustomer status: ' + data.status);
+                return data.customer;
+            })
+            .catch(this.handleError);
+    }
+
     calculateCustomersOrderTotal(customers: ICustomer[]) {
         for (let customer of customers) {
             if (customer && customer.orders) {
