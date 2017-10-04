@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Antiforgery;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using ProductsStore.Models;
 using ProductsStore.Repository;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
@@ -103,6 +105,11 @@ namespace ProductsStore
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            Mapper.Initialize(config =>
+            {
+                config.CreateMap<CustomerInsertDto, Customer>();
+            });
 
             app.UseStaticFiles();
 

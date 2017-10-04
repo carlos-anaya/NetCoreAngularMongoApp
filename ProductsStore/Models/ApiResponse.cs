@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using System.Collections.Generic;
 
 namespace ProductsStore.Models
 {
@@ -6,6 +6,6 @@ namespace ProductsStore.Models
     {
         public bool Status { get; set; }
         public Customer Customer { get; set; }
-        public ModelStateDictionary ModelStateDictionary { get; set; }
+        public Dictionary<string, IEnumerable<string>> ModelStateDictionary { get; set; }
     }
 }
