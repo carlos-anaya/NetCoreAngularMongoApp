@@ -23,6 +23,7 @@ export class CustomerEditComponent implements OnInit {
         zip: 0
     };
     operationText: string = 'Insert';
+    errorMessage: string;
 
     constructor(private customerService: CustomerService,
         private stateService: StateService, private router: Router,
@@ -61,13 +62,31 @@ export class CustomerEditComponent implements OnInit {
             lastName: [this.customer.lastName, Validators.required],
             email: [this.customer.email, [Validators.required, Validators.email]],
             gender: [this.customer.gender, Validators.required],
+            zip: [this.customer.zip, Validators.required],
             address: [this.customer.address, Validators.required],
             city: [this.customer.city, Validators.required],
             stateId: [this.customer.stateId, Validators.required]
         });
     }
 
-    submit() { }
+    submit({ value, valid }: { value: ICustomer, valid: boolean }) {
+        value.id = this.customer.id;
+        value.zip = this.customer.zip || 0;
+
+        if (value.id) {
+
+        } else {
+            this.customerService.insertCustomer(value).subscribe(
+                (customer: ICustomer) => {
+                    if (customer)
+                        this.router.navigateByUrl('/customers');
+                    else
+                        this.errorMessage = 'Customer could not be added.';
+                },
+                (err: any) => console.log(err)
+            );
+        }
+    }
 
     cancel(e: Event) {
         e.preventDefault();
