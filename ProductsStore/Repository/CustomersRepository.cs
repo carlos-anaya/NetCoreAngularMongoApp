@@ -64,15 +64,8 @@ namespace ProductsStore.Repository
             }
         }
 
-        public async Task<bool> DeleteCustomerAsync(int id)
+        public async Task<bool> DeleteCustomerAsync(Customer customer)
         {
-            //Extra hop to the database but keeps it nice and simple for this demo
-            //Including orders since there's a foreign-key constraint and we need
-            //to remove the orders in addition to the customer
-            var customer = await _appDbContext.Customers
-                .Include(c => c.Orders)
-                .SingleOrDefaultAsync(c => c.Id == id);
-
             _appDbContext.Remove(customer);
 
             try

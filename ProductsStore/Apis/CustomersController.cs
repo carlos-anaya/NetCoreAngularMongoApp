@@ -44,6 +44,7 @@ namespace ProductsStore.Apis
         [NoCache]
         [ProducesResponseType(typeof(Customer), 200)]
         [ProducesResponseType(typeof(ApiResponse), 400)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult> GetCustomer(int id)
         {
             try
@@ -100,6 +101,30 @@ namespace ProductsStore.Apis
                 if (!status)
                     return BadRequest(new ApiResponse { Status = false });
                 return Ok(new ApiResponse { Status = true, Customer = customerToRepo });
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+                return BadRequest(new ApiResponse { Status = false });
+            }
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(ApiResponse), 200)]
+        [ProducesResponseType(typeof(ApiResponse), 400)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult> DeleteCustomer(int id)
+        {
+            var customer = await _customersRepository.GetCustomerAsync(id);
+            if (customer == null)
+                return NotFound();
+
+            try
+            {
+                var status = await _customersRepository.DeleteCustomerAsync(customer);
+                if (!status)
+                    return BadRequest(new ApiResponse { Status = false });
+                return Ok(new ApiResponse { Status = true });
             }
             catch (Exception e)
             {

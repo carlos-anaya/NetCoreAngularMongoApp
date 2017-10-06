@@ -10,6 +10,6 @@ namespace ProductsStore.Repository
         Task<Customer> GetCustomerAsync(int id);
         Task<Customer> InsertCustomerAsync(Customer customer);
         Task<bool> UpdateCustomerAsync(Customer customer);
-        Task<bool> DeleteCustomerAsync(int id);
+        Task<bool> DeleteCustomerAsync(Customer customer);
     }
 }
