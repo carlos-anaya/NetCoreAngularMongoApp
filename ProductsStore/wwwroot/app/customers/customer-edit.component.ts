@@ -52,7 +52,15 @@ export class CustomerEditComponent implements OnInit {
 
     submit() {
         if (this.customer.id) {
-
+            this.customerService.updateCustomer(this.customer).subscribe(
+                (customer: ICustomer) => {
+                    if (customer)
+                        this.router.navigateByUrl('/customers');
+                    else
+                        this.errorMessage = 'Customer could not be updated';
+                },
+                (err: any) => console.log(err)
+            );
         } else {
             this.customerService.insertCustomer(this.customer).subscribe(
                 (customer: ICustomer) => {

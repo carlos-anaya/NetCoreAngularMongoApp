@@ -36,7 +36,17 @@ export class CustomerService {
         return this.http.post(this.baseUrl, customer)
             .map((res: Response) => {
                 const data = res.json();
-                console.log('updateCustomer status: ' + data.status);
+                console.log('Insert Customer status: ' + data.status);
+                return data.customer;
+            })
+            .catch(this.handleError);
+    }
+
+    updateCustomer(customer: ICustomer): Observable<ICustomer> {
+        return this.http.put(this.baseUrl + '/' + customer.id, customer)
+            .map((res: Response) => {
+                const data = res.json();
+                console.log('Update Customer status:' + data.status);
                 return data.customer;
             })
             .catch(this.handleError);
