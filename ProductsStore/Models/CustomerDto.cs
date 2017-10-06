@@ -2,7 +2,7 @@
 
 namespace ProductsStore.Models
 {
-    public class CustomerInsertDto
+    public class CustomerDto
     {
         [Required]
         public string FirstName { get; set; }

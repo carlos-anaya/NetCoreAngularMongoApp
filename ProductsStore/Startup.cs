@@ -108,7 +108,7 @@ namespace ProductsStore
 
             Mapper.Initialize(config =>
             {
-                config.CreateMap<CustomerInsertDto, Customer>();
+                config.CreateMap<CustomerDto, Customer>();
             });
 
             app.UseStaticFiles();

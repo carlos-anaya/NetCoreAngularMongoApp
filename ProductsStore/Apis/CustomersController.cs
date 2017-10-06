@@ -65,7 +65,7 @@ namespace ProductsStore.Apis
         [HttpPost]
         [ProducesResponseType(typeof(ApiResponse), 201)]
         [ProducesResponseType(typeof(ApiResponse), 400)]
-        public async Task<ActionResult> AddCustomer([FromBody] CustomerInsertDto customer)
+        public async Task<ActionResult> AddCustomer([FromBody] CustomerDto customer)
         {
             if (!ModelState.IsValid)
                 return BadRequest(new ApiResponse { Status = false, ModelStateDictionary = ModelState.GetErrors() });
@@ -76,6 +76,30 @@ namespace ProductsStore.Apis
                     return BadRequest(new ApiResponse { Status = false });
                 return CreatedAtRoute("GetCustomer", new { id = newCustomer.Id },
                     new ApiResponse() { Customer = newCustomer, Status = true });
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+                return BadRequest(new ApiResponse { Status = false });
+            }
+        }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(typeof(ApiResponse), 200)]
+        [ProducesResponseType(typeof(ApiResponse), 400)]
+        public async Task<ActionResult> UpdateCustomer(int id, [FromBody] CustomerDto customer)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(new ApiResponse { Status = false, ModelStateDictionary = ModelState.GetErrors() });
+            try
+            {
+                var customerToRepo = Mapper.Map<Customer>(customer);
+                customerToRepo.Id = id;
+
+                var status = await _customersRepository.UpdateCustomerAsync(customerToRepo);
+                if (!status)
+                    return BadRequest(new ApiResponse { Status = false });
+                return Ok(new ApiResponse { Status = true, Customer = customerToRepo });
             }
             catch (Exception e)
             {
