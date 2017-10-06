@@ -52,6 +52,12 @@ export class CustomerService {
             .catch(this.handleError);
     }
 
+    deleteCustomer(id: string): Observable<boolean> {
+        return this.http.delete(this.baseUrl + '/' + id)
+            .map((res: Response) => res.json().status)
+            .catch(this.handleError);
+    }
+
     calculateCustomersOrderTotal(customers: ICustomer[]) {
         for (let customer of customers) {
             if (customer && customer.orders) {

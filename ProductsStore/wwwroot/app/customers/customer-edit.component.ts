@@ -22,6 +22,7 @@ export class CustomerEditComponent implements OnInit {
     };
     operationText: string = 'Insert';
     errorMessage: string;
+    deleteMessageEnabled: boolean;
 
     constructor(private customerService: CustomerService,
         private stateService: StateService, private router: Router,
@@ -72,6 +73,19 @@ export class CustomerEditComponent implements OnInit {
                 (err: any) => console.log(err)
             );
         }
+    }
+
+    delete(e: Event) {
+        e.preventDefault();
+        this.customerService.deleteCustomer(this.customer.id).subscribe(
+            (res: boolean) => {
+                if (res)
+                    this.router.navigateByUrl('/customers');
+                else
+                    this.errorMessage = 'Customer could not be deleted';
+            },
+            (err: any) => console.log(err)
+        );
     }
 
     cancel(e: Event) {
