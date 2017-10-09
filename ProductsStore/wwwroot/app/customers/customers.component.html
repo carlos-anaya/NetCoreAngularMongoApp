@@ -7,7 +7,7 @@
     </header>
     <br />
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <filter-textbox (changed)="filterChanged($event)"></filter-textbox>
         </div>
         <div class="col-md-4">
@@ -15,5 +15,10 @@
         </div>
     </div>
     <br />
+    <div class="row">
+        <div class="col-md-10">
+            <pagination [totalRecords]="totalRecords" [pageSize]="pageSize" (pageChanged)="pageChanged($event)"></pagination>
+        </div>
+    </div>
     <customers-grid [customers]="filteredCustomers"></customers-grid>
 </div>

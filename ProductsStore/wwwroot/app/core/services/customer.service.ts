@@ -6,7 +6,7 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { ICustomer } from '../../shared/interfaces';
+import { ICustomer, IPagedResults } from '../../shared/interfaces';
 
 
 @Injectable()
@@ -22,6 +22,20 @@ export class CustomerService {
                 let customers = res.json();
                 this.calculateCustomersOrderTotal(customers);
                 return customers;
+            })
+            .catch(this.handleError);
+    }
+
+    getCustomersPaged(page: number, pageSize: number): Observable<IPagedResults<ICustomer[]>> {
+        return this.http.get(`${this.baseUrl}/page/${page}/${pageSize}`)
+            .map((res: Response) => {
+                const totalRecords = +res.headers.get('X-Total-Records');
+                let customers = res.json();
+                this.calculateCustomersOrderTotal(customers);
+                return {
+                    results: customers,
+                    totalRecords: totalRecords
+                };
             })
             .catch(this.handleError);
     }

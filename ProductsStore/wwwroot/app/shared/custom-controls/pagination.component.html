@@ -1,0 +1,17 @@
+﻿<div [hidden]="!isVisible" class="">
+    <ul class="pagination">
+        <li [class.disabled]="!isPreviousEnabled" (click)="previousPageClick($event)">
+            <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li *ngFor="let page of pages" (click)="pageChange(page, $event)" [class.active]="currentPage === page">
+            <a href="#">{{ page }}</a>
+        </li>
+        <li [class.disabled]="!isNextEnabled" (click)="nextPageClick($event)">
+            <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</div>

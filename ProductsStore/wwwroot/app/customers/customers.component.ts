@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { CustomerService } from '../core/services/customer.service';
 import { DataFilterService } from '../core/services/data-filter.service';
-import { ICustomer } from '../shared/interfaces';
+import { ICustomer, IPagedResults } from '../shared/interfaces';
 
 @Component({
     selector: 'customers',
@@ -14,13 +14,16 @@ export class CustomersComponent implements OnInit {
     customers: ICustomer[] = [];
     filteredCustomers: ICustomer[] = [];
 
+    totalRecords: number = 0;
+    pageSize: number = 10;
+
     constructor(private router: Router,
         private customerService: CustomerService,
         private dataFilter: DataFilterService) { }
 
     ngOnInit(): void {
         this.title = 'Customers';
-        this.getCustomers();
+        this.getCustomersPaged(1);
     }
 
     getCustomers(): any {
@@ -30,6 +33,22 @@ export class CustomersComponent implements OnInit {
             },
             (err: any) => console.log(err),
             () => console.log('getCustomers() executed succesfully')
+        );
+    }
+
+    pageChanged(page: number) {
+        this.getCustomersPaged(page);
+    }
+
+    getCustomersPaged(page: number) {
+        const skip = (page - 1) * this.pageSize;
+        this.customerService.getCustomersPaged(skip, this.pageSize).subscribe(
+            (res: IPagedResults<ICustomer[]>) => {
+                this.customers = this.filteredCustomers = res.results;
+                this.totalRecords = res.totalRecords;
+            },
+            (err: any) => console.log(err),
+            () => console.log('getCustomersPaged() executed succesfully')
         );
     }
 
