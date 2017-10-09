@@ -40,6 +40,25 @@ namespace ProductsStore.Apis
             }
         }
 
+        [HttpGet("page/{skip}/{take}")]
+        [NoCache]
+        [ProducesResponseType(typeof(List<Customer>), 200)]
+        [ProducesResponseType(typeof(ApiResponse), 400)]
+        public async Task<ActionResult> GetCustomersPaged(int skip, int take)
+        {
+            try
+            {
+                var pagedResult = await _customersRepository.GetCustomersPagedAsync(skip, take);
+                Response.Headers.Add("X-Total-Records", pagedResult.TotalRecords.ToString());
+                return Ok(pagedResult.Records);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+                return BadRequest(new ApiResponse { Status = false });
+            }
+        }
+
         [HttpGet("{id}", Name = "GetCustomer")]
         [NoCache]
         [ProducesResponseType(typeof(Customer), 200)]

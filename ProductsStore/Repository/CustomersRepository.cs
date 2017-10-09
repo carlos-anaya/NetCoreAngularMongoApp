@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using ProductsStore.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ProductsStore.Repository
@@ -23,6 +24,21 @@ namespace ProductsStore.Repository
                 .Include(c => c.State)
                 .Include(c => c.Orders)
                 .ToListAsync();
+        }
+
+        public async Task<PagedResult<Customer>> GetCustomersPagedAsync(int skip, int take)
+        {
+            return new PagedResult<Customer>
+            {
+                TotalRecords = await _appDbContext.Customers.CountAsync(),
+                Records = await _appDbContext.Customers
+                    .OrderBy(c => c.LastName)
+                    .Include(c => c.State)
+                    .Include(c => c.Orders)
+                    .Skip(skip)
+                    .Take(take)
+                    .ToListAsync()
+            };
         }
 
         public async Task<Customer> GetCustomerAsync(int id)
