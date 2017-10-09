@@ -1,17 +1,30 @@
-﻿<div [hidden]="!isVisible" class="">
+﻿<div>
+    <b>Records per page:</b>
     <ul class="pagination">
-        <li [class.disabled]="!isPreviousEnabled" (click)="previousPageClick($event)">
-            <a href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-        <li *ngFor="let page of pages" (click)="pageChange(page, $event)" [class.active]="currentPage === page">
-            <a href="#">{{ page }}</a>
-        </li>
-        <li [class.disabled]="!isNextEnabled" (click)="nextPageClick($event)">
-            <a href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
+        <li (click)="pageSizeChange(5, $event)" [class.active]="pageSize === 5"><a href="#">5</a></li>
+        <li (click)="pageSizeChange(10, $event)" [class.active]="pageSize === 10"><a href="#">10</a></li>
+        <li (click)="pageSizeChange(20, $event)" [class.active]="pageSize === 20"><a href="#">20</a></li>
+        <li (click)="pageSizeChange(50, $event)" [class.active]="pageSize === 50"><a href="#">50</a></li>
+        <li (click)="pageSizeChange(100, $event)" [class.active]="pageSize === 100"><a href="#">100</a></li>
     </ul>
+</div>
+<div>
+    <div *ngIf="isVisible">
+        <b>Page:</b>
+        <ul class="pagination">
+            <li [class.disabled]="!isPreviousEnabled" (click)="previousPageClick($event)">
+                <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li *ngFor="let page of pages" (click)="pageChange(page, $event)" [class.active]="currentPage === page">
+                <a href="#">{{ page }}</a>
+            </li>
+            <li [class.disabled]="!isNextEnabled" (click)="nextPageClick($event)">
+                <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>

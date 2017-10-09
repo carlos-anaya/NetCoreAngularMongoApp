@@ -1,7 +1,8 @@
 ﻿import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 @Component({
     selector: 'pagination',
-    templateUrl: './pagination.component.html'
+    templateUrl: './pagination.component.html',
+    styleUrls: ['./pagination.component.css']
 })
 
 export class PaginationComponent implements OnInit {
@@ -38,15 +39,20 @@ export class PaginationComponent implements OnInit {
     @Output()
     pageChanged: EventEmitter<number> = new EventEmitter();
 
+    @Output()
+    pageSizeChanged: EventEmitter<number> = new EventEmitter();
+
     update() {
-        if (this.pagerPageSize && this.pagerTotalRecords) {
+        if (this.pagerPageSize && this.pagerTotalRecords &&
+            this.totalRecords >= this.pageSize) {
             this.totalPages = Math.ceil(this.pagerTotalRecords / this.pageSize);
+            this.pages = [];
             this.isVisible = true;
-            if (this.totalRecords >= this.pageSize) {
-                for (let i = 1; i < this.totalPages + 1; i++) {
-                    this.pages.push(i);
-                }
+
+            for (let i = 1; i < this.totalPages + 1; i++) {
+                this.pages.push(i);
             }
+
             return;
         }
         this.isVisible = false;
@@ -77,6 +83,18 @@ export class PaginationComponent implements OnInit {
         this.isPreviousEnabled = this.currentPage > 1;
         this.isNextEnabled = this.currentPage < this.totalPages;
         this.pageChanged.emit(page);
+    }
+
+    pageSizeChange(pageSize: number, e?: MouseEvent) {
+        if (e)
+            e.preventDefault();
+
+        if (this.pageSize === pageSize)
+            return;
+
+        this.currentPage = 1;
+        this.pageSize = pageSize;
+        this.pageSizeChanged.emit(pageSize);
     }
 
     ngOnInit(): void { }

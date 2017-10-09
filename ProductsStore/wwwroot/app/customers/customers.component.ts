@@ -40,6 +40,11 @@ export class CustomersComponent implements OnInit {
         this.getCustomersPaged(page);
     }
 
+    pageSizeChanged(pageSize: number) {
+        this.pageSize = pageSize;
+        this.getCustomersPaged(1);
+    }
+
     getCustomersPaged(page: number) {
         const skip = (page - 1) * this.pageSize;
         this.customerService.getCustomersPaged(skip, this.pageSize).subscribe(
