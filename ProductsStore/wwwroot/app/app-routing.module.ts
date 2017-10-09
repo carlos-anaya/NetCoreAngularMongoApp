@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 import { CustomersComponent } from './customers/customers.component';
-import { CustomerEditComponent } from './customers/customer-edit.component';
-//import { CustomerEditComponent } from './customers/customer-edit-reactive.component';
+//import { CustomerEditComponent } from './customers/customer-edit.component';
+import { CustomerEditComponent } from './customers/customer-edit-reactive.component';
 import { CustomersGridComponent } from './customers/customers-grid.component';
 
 const appRoutes: Routes = [

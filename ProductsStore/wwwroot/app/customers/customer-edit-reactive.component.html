@@ -77,7 +77,17 @@
             </div>
         </div>
         <div class="form-group" *ngIf="customer">
-            <div class="col-sm-offset-2 col-sm-10">
+            <div class="col-sm-6" *ngIf="customer.id && deleteMessageEnabled">
+                <div class="alert alert-warning">
+                    Are you sure you want to delete the customer?&nbsp;
+                    <button class="btn btn-danger" (click)="delete($event)">Yes</button>
+                    <button class="btn btn-default" (click)="deleteMessageEnabled = false">No</button>
+                </div>
+            </div>
+            <div class="col-sm-2 text-right" *ngIf="!deleteMessageEnabled">
+                <button class="btn btn-danger" (click)="deleteMessageEnabled = true">Delete</button>
+            </div>
+            <div class="col-sm-4" *ngIf="!deleteMessageEnabled">
                 <button class="btn btn-default" (click)="cancel($event)">Cancel</button>
                 <button type="submit" class="btn btn-success" [disabled]="!customerForm.valid">{{ operationText }}</button>
             </div>

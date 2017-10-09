@@ -96,6 +96,19 @@ export class CustomerEditComponent implements OnInit {
         }
     }
 
+    delete(e: Event) {
+        e.preventDefault();
+        this.customerService.deleteCustomer(this.customer.id).subscribe(
+            (res: Boolean) => {
+                if (res)
+                    this.router.navigateByUrl('/customers');
+                else
+                    this.errorMessage = 'Customer could not be deleted.';
+            },
+            (err: any) => console.log(err)
+        );
+    }
+
     cancel(e: Event) {
         e.preventDefault();
         this.router.navigateByUrl('/customers');
