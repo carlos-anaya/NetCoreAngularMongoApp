@@ -65,7 +65,7 @@ export class CustomerEditComponent implements OnInit {
             zip: [this.customer.zip, Validators.required],
             address: [this.customer.address, Validators.required],
             city: [this.customer.city, Validators.required],
-            stateId: [this.customer.stateId, Validators.required]
+            //stateId: [this.customer.stateId, Validators.required]
         });
     }
 

@@ -8,7 +8,6 @@ export interface ICustomer {
     address: string;
     city: string;
     state?: IState;
-    stateId?: number;
     zip: number;
     gender: string;
     orderCount?: number;
@@ -17,6 +16,7 @@ export interface ICustomer {
 }
 
 export interface IState {
+    id?: string;
     abbreviation: string;
     name: string;
 }

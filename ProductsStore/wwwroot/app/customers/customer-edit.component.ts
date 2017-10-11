@@ -18,8 +18,14 @@ export class CustomerEditComponent implements OnInit {
         address: '',
         email: '',
         city: '',
-        zip: 0
+        zip: 0,
+        state: {
+            id: '',
+            abbreviation: '',
+            name: ''
+        }
     };
+
     operationText: string = 'Insert';
     errorMessage: string;
     deleteMessageEnabled: boolean;
@@ -51,7 +57,12 @@ export class CustomerEditComponent implements OnInit {
         );
     }
 
+    updateCustomerState() {
+        this.customer.state = this.states.filter(x => x.id === this.customer.state.id)[0];
+    }
+
     submit() {
+        this.updateCustomerState();
         if (this.customer.id) {
             this.customerService.updateCustomer(this.customer).subscribe(
                 (customer: ICustomer) => {
