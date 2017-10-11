@@ -8,7 +8,7 @@ namespace ProductsStore.Repository
     {
         Task<List<Customer>> GetCustomersAsync();
         Task<PagedResult<Customer>> GetCustomersPagedAsync(int skip, int take);
-        Task<Customer> GetCustomerAsync(int id);
+        Task<Customer> GetCustomerAsync(string id);
         Task<Customer> InsertCustomerAsync(Customer customer);
         Task<bool> UpdateCustomerAsync(Customer customer);
         Task<bool> DeleteCustomerAsync(Customer customer);

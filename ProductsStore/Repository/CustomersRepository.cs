@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using ProductsStore.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ProductsStore.Repository
@@ -20,41 +20,35 @@ namespace ProductsStore.Repository
         }
         public async Task<List<Customer>> GetCustomersAsync()
         {
-            return await _appDbContext.Customers
-                .Include(c => c.State)
-                .Include(c => c.Orders)
-                .ToListAsync();
+            return await _appDbContext.Customers.Find(_ => true).ToListAsync();
         }
 
         public async Task<PagedResult<Customer>> GetCustomersPagedAsync(int skip, int take)
         {
+            var count = await _appDbContext.Customers.CountAsync(_ => true);
             return new PagedResult<Customer>
             {
-                TotalRecords = await _appDbContext.Customers.CountAsync(),
-                Records = await _appDbContext.Customers
-                    .OrderBy(c => c.LastName)
-                    .Include(c => c.State)
-                    .Include(c => c.Orders)
+                TotalRecords = int.Parse(count.ToString()),
+                Records = await _appDbContext.Customers.Find(_ => true)
+                    .Sort("{LastName: 1}")
                     .Skip(skip)
-                    .Take(take)
+                    .Limit(take)
                     .ToListAsync()
             };
         }
 
-        public async Task<Customer> GetCustomerAsync(int id)
+        public async Task<Customer> GetCustomerAsync(string id)
         {
-            return await _appDbContext.Customers
-                .Include(c => c.State)
-                .Include(c => c.Orders)
-                .SingleOrDefaultAsync(c => c.Id == id);
+            var filter = Builders<Customer>.Filter.Eq(c => c.Id, id);
+            return await _appDbContext.Customers.Find(filter).SingleOrDefaultAsync();
         }
 
         public async Task<Customer> InsertCustomerAsync(Customer customer)
         {
-            _appDbContext.Add(customer);
+            customer.Id = ObjectId.GenerateNewId().ToString();
             try
             {
-                await _appDbContext.SaveChangesAsync();
+                await _appDbContext.Customers.InsertOneAsync(customer);
             }
             catch (Exception e)
             {
@@ -66,12 +60,12 @@ namespace ProductsStore.Repository
 
         public async Task<bool> UpdateCustomerAsync(Customer customer)
         {
-            _appDbContext.Customers.Attach(customer);
-            _appDbContext.Entry(customer).State = EntityState.Modified;
+            var filter = Builders<Customer>.Filter.Eq(c => c.Id, customer.Id);
 
             try
             {
-                return await _appDbContext.SaveChangesAsync() > 0;
+                await _appDbContext.Customers.ReplaceOneAsync(filter, customer);
+                return true;
             }
             catch (Exception e)
             {
@@ -82,11 +76,12 @@ namespace ProductsStore.Repository
 
         public async Task<bool> DeleteCustomerAsync(Customer customer)
         {
-            _appDbContext.Remove(customer);
+            var filter = Builders<Customer>.Filter.Eq(c => c.Id, customer.Id);
 
             try
             {
-                return await _appDbContext.SaveChangesAsync() > 0;
+                await _appDbContext.Customers.DeleteOneAsync(filter);
+                return true;
             }
             catch (Exception e)
             {

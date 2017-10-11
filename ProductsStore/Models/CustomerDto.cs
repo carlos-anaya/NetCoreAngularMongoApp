@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProductsStore.Models
 {
@@ -21,13 +22,15 @@ namespace ProductsStore.Models
         public string City { get; set; }
 
         [Required]
-        [Range(1, 50, ErrorMessage = "Invalid State id")]
-        public int? StateId { get; set; }
+        public State State { get; set; }
 
         [Required]
         public int? Zip { get; set; }
 
         [Required]
         public string Gender { get; set; }
+
+        public int OrderCount { get; set; }
+        public ICollection<Order> Orders { get; set; }
     }
 }

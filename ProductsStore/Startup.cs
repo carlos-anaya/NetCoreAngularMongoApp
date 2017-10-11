@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -18,13 +17,11 @@ namespace ProductsStore
     public class Startup
     {
         private readonly IConfiguration _configuration;
-        private readonly IHostingEnvironment _environment;
 
         public Startup(IHostingEnvironment environment)
         {
-            _environment = environment;
             var builder = new ConfigurationBuilder()
-                .SetBasePath(_environment.ContentRootPath)
+                .SetBasePath(environment.ContentRootPath)
                 .AddJsonFile("appsettings.json")
                 .AddEnvironmentVariables();
 
@@ -38,10 +35,7 @@ namespace ProductsStore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(options =>
-            {
-                options.UseSqlServer(_configuration["ConnectionStrings:AppDbConnection"]);
-            });
+            services.AddScoped<AppDbContext>();
 
             // Add framework services.
             services.AddMvc();
@@ -75,6 +69,8 @@ namespace ProductsStore
                 // options.IncludeXmlComments(filePath);
 
             });
+
+            services.Configure<MongoSettings>(_configuration.GetSection("MongoSettings"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

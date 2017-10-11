@@ -64,7 +64,7 @@ namespace ProductsStore.Apis
         [ProducesResponseType(typeof(Customer), 200)]
         [ProducesResponseType(typeof(ApiResponse), 400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult> GetCustomer(int id)
+        public async Task<ActionResult> GetCustomer(string id)
         {
             try
             {
@@ -107,7 +107,7 @@ namespace ProductsStore.Apis
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(ApiResponse), 200)]
         [ProducesResponseType(typeof(ApiResponse), 400)]
-        public async Task<ActionResult> UpdateCustomer(int id, [FromBody] CustomerDto customer)
+        public async Task<ActionResult> UpdateCustomer(string id, [FromBody] CustomerDto customer)
         {
             if (!ModelState.IsValid)
                 return BadRequest(new ApiResponse { Status = false, ModelStateDictionary = ModelState.GetErrors() });
@@ -132,7 +132,7 @@ namespace ProductsStore.Apis
         [ProducesResponseType(typeof(ApiResponse), 200)]
         [ProducesResponseType(typeof(ApiResponse), 400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult> DeleteCustomer(int id)
+        public async Task<ActionResult> DeleteCustomer(string id)
         {
             var customer = await _customersRepository.GetCustomerAsync(id);
             if (customer == null)

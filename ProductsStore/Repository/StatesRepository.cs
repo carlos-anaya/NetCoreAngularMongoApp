@@ -1,7 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MongoDB.Driver;
 using ProductsStore.Models;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ProductsStore.Repository
@@ -16,9 +15,7 @@ namespace ProductsStore.Repository
         }
         public async Task<List<State>> GetStatesAsync()
         {
-            return await _appDbContext.States
-                .OrderBy(s => s.Name)
-                .ToListAsync();
+            return await _appDbContext.States.Find(_ => true).Sort("{Name: 1}").ToListAsync();
         }
     }
 }

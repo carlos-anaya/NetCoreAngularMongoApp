@@ -1,8 +1,13 @@
-﻿namespace ProductsStore.Models
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.IdGenerators;
+
+namespace ProductsStore.Models
 {
     public class State
     {
-        public int Id { get; set; }
+        [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
+        public string Id { get; set; }
+
         public string Name { get; set; }
         public string Abbreviation { get; set; }
 
