@@ -71,7 +71,7 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="state">State:</label>
             <div class="col-sm-10">
-                <select class="form-control" id="state" formControlName="stateId">
+                <select class="form-control" id="state" formControlName="stateId" (change)="updateCustomerState();">
                     <option *ngFor="let state of states" [ngValue]="state.id">{{state.name}}</option>
                 </select>
             </div>

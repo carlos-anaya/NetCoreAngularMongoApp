@@ -20,14 +20,23 @@ export class CustomerEditComponent implements OnInit {
         address: '',
         email: '',
         city: '',
-        zip: 0
+        zip: 0,
+        state: {
+            id: '',
+            abbreviation: '',
+            name: ''
+        }
     };
+
     operationText: string = 'Insert';
     errorMessage: string;
 
     constructor(private customerService: CustomerService,
-        private stateService: StateService, private router: Router,
-        private route: ActivatedRoute, private formBuilder: FormBuilder) { }
+        private stateService: StateService,
+        private router: Router,
+        private route: ActivatedRoute,
+        private formBuilder: FormBuilder) {
+    }
 
     ngOnInit(): void {
         let id = this.route.snapshot.params['id'];
@@ -65,13 +74,22 @@ export class CustomerEditComponent implements OnInit {
             zip: [this.customer.zip, Validators.required],
             address: [this.customer.address, Validators.required],
             city: [this.customer.city, Validators.required],
-            //stateId: [this.customer.stateId, Validators.required]
+            stateId: [this.customer.state.id, Validators.required],
+            state: [this.customer.state]
         });
+    }
+
+    updateCustomerState() {
+        this.customer.state = this.states.filter(x => x.id === this.customerForm.controls['stateId'].value)[0];
     }
 
     submit({ value, valid }: { value: ICustomer, valid: boolean }) {
         value.id = this.customer.id;
         value.zip = this.customer.zip || 0;
+
+        value.state = this.customer.state;
+        value.orders = this.customer.orders;
+        value.orderCount = this.customer.orderCount;
 
         if (value.id) {
             this.customerService.updateCustomer(value).subscribe(
