@@ -1,16 +1,14 @@
 ﻿<div class="container">
-    <header>
-        <h3>
-            <span class="glyphicon glyphicon-user"></span>
-            {{ title }}
-        </h3>
-    </header>
+    <h3>
+        <span class="glyphicon glyphicon-user"></span>
+        {{ title }}
+    </h3>
     <br />
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-5">
             <filter-textbox (changed)="filterChanged($event)"></filter-textbox>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <a class="btn btn-primary" (click)="addNewCustomer()">Add new customer!</a>
         </div>
     </div>

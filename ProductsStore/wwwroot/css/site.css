@@ -3,9 +3,15 @@
     padding-bottom: 20px;
 }
 
+footer {
+    margin-top: 40px;
+}
+
 .logo {
-    margin-top: 10px;
+    /*margin-top: 10px;
     width: 200px;
+        */
+    height: 32px;
 }
 
 .app-title {
@@ -13,9 +19,8 @@
     color: black;
 }
 
-main {
-    position: relative;
-    padding-top: 60px;
+.main {
+    padding-top: 20px;
 }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
@@ -25,3 +30,32 @@ textarea {
     max-width: 280px;
 }
 
+.glyphicon.normal-right-spinner {
+    -webkit-animation: glyphicon-spin-r 2s infinite linear;
+    animation: glyphicon-spin-r 2s infinite linear;
+}
+
+
+@-webkit-keyframes glyphicon-spin-r {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+
+@keyframes glyphicon-spin-r {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}

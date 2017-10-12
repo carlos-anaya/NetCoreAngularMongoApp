@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Angular">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="lib/bootstrap/dist/css/bootstrap-paper.min.css" rel="stylesheet" />
     <link href="css/site.css" rel="stylesheet" />
 
     <!-- Scripts if using SystemJS (webpack is another option - see readme)-->
@@ -22,41 +22,44 @@
 
 </head>
 <body>
-    <header class="navbar navbar-inner navbar-fixed-top">
-        <nav class="container">
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <a href="./home" class="navbar-brand">
+                    <img src="images/ma-dot-net.png" alt="logo" class="logo" />
+                </a>
+                <a href="./home" class="navbar-brand">Products Store</a>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-main" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <img class="logo" src="images/ma-dot-net.png" alt="logo" />
-                <div>
-                    <a href="/home" class="app-title">.NET Core, Angular & Mongo App</a>
-                </div>
             </div>
-        </nav>
-    </header>
-
-    @RenderBody()
-
-    <footer>
-        <div class="navbar navbar-fixed-bottom">
-            <div class="navbar-inner footer">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            Created by <a href="https://www.linkedin.com/in/carlos-anaya-6098bb4b" target="_blank">Carlos Anaya</a>
-                        </div>
-                    </div>
-                </div>
+            <div class="navbar-collapse collapse" id="navbar-main">
+                <ul class="nav navbar-nav">
+                    <li><a href="./home">Home</a></li>
+                    <li><a href="./customers">Customers</a></li>
+                </ul>
             </div>
         </div>
-    </footer>
+    </div>
+
+    <div class="container">
+        <div class="main">
+            @RenderBody()
+
+            <footer>
+                <div class="row">
+                    <div class="col-md-12">
+                        Created by <a href="https://www.linkedin.com/in/carlos-anaya-6098bb4b" target="_blank">Carlos Anaya</a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
 
     <form asp-antiforgery="true"></form>
-
 
     <!--
         If using webpack and AOT comment out system.js

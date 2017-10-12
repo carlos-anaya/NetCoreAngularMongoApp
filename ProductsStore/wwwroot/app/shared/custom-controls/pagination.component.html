@@ -1,17 +1,17 @@
-﻿<div>
-    <b>Records per page:</b>
-    <ul class="pagination">
-        <li (click)="pageSizeChange(5, $event)" [class.active]="pageSize === 5"><a href="#">5</a></li>
-        <li (click)="pageSizeChange(10, $event)" [class.active]="pageSize === 10"><a href="#">10</a></li>
-        <li (click)="pageSizeChange(20, $event)" [class.active]="pageSize === 20"><a href="#">20</a></li>
-        <li (click)="pageSizeChange(50, $event)" [class.active]="pageSize === 50"><a href="#">50</a></li>
-        <li (click)="pageSizeChange(100, $event)" [class.active]="pageSize === 100"><a href="#">100</a></li>
-    </ul>
-</div>
-<div>
-    <div *ngIf="isVisible">
-        <b>Page:</b>
-        <ul class="pagination">
+﻿<div class="form-inline">
+    <div class="form-group">
+        <label class="control-label" for="pageSize">Records per page:</label>
+        <ul class="pagination" id="pageSize">
+            <li (click)="pageSizeChange(5, $event)" [class.active]="pageSize === 5"><a href="#">5</a></li>
+            <li (click)="pageSizeChange(10, $event)" [class.active]="pageSize === 10"><a href="#">10</a></li>
+            <li (click)="pageSizeChange(20, $event)" [class.active]="pageSize === 20"><a href="#">20</a></li>
+            <li (click)="pageSizeChange(50, $event)" [class.active]="pageSize === 50"><a href="#">50</a></li>
+            <li (click)="pageSizeChange(100, $event)" [class.active]="pageSize === 100"><a href="#">100</a></li>
+        </ul>
+    </div>
+    <div class="form-group" *ngIf="isVisible">
+        <label class="control-label" for="page">Page:</label>
+        <ul class="pagination" id="page">
             <li [class.disabled]="!isPreviousEnabled" (click)="previousPageClick($event)">
                 <a href="#" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
